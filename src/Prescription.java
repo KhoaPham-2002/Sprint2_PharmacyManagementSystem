@@ -1,35 +1,28 @@
+// Name: Khoa Pham
+// Project: Sprint 1 Java
+// Group: Solo
+// Date: 03/02/2025
+
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Prescription {
-    private int prescriptionID;
-    private Doctor doctor;
-    private Patient patient;
-    private Medication medication;
-    private Date prescriptionExpiry;
+    private int prescriptionID; // Unique identifier for the prescription
+    private Doctor doctor; // Doctor who issued the prescription
+    private Patient patient; // Patient receiving the prescription
+    private Medication medication; // Medication prescribed
+    private Date prescriptionExpiry; // Expiry date of the prescription
 
-    // constructor
+    // Constructor to initialize a Prescription object
     public Prescription(int prescriptionID, Doctor doctor, Patient patient, Medication medication, Date prescriptionExpiry) {
         this.prescriptionID = prescriptionID;
         this.doctor = doctor;
         this.patient = patient;
         this.medication = medication;
-        if (prescriptionExpiry == null) {
-            this.prescriptionExpiry = generatePrescriptionExpiry(); // Set default expiry (1 year from today)
-        } else {
-            this.prescriptionExpiry = prescriptionExpiry; // Use provided expiry date
-        }
+        this.prescriptionExpiry = prescriptionExpiry;
     }
 
-    // generate prescription expiry (default is 1 year from date issued(date issued is current system date))
-    private Date generatePrescriptionExpiry() {
-        Calendar calendar = Calendar.getInstance(); // Get current date
-        calendar.add(Calendar.YEAR, 1); // Add 1 year
-        return calendar.getTime(); // Return updated date
-    }
-
-    // getters and setters
+    // Getter and setter methods for prescription attributes
     public int getPrescriptionID() {
         return prescriptionID;
     }
@@ -62,18 +55,26 @@ public class Prescription {
         this.medication = medication;
     }
 
-    public String getPrescriptionExpiry() {
+    public Date getPrescriptionExpiry() {
+        return prescriptionExpiry;
+    }
+
+    public void setPrescriptionExpiry(Date prescriptionExpiry) {
+        this.prescriptionExpiry = prescriptionExpiry;
+    }
+
+    // Returns prescription expiry date as a formatted string (YYYY-MM-DD)
+    public String getPrescriptionExpiryString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(prescriptionExpiry);
     }
 
-    // to string
+    // Returns a formatted string representation of the Prescription object
     @Override
     public String toString() {
         return String.format(
             "Prescription ID: %d%nDoctor: %s%nPatient: %s%nMedication: %s%nPrescription Expiry: %s%n",
-            prescriptionID, doctor.getName(), patient.getName(), medication.getMedName(), getPrescriptionExpiry()
+            prescriptionID, doctor.getName(), patient.getName(), medication.getMedName(), getPrescriptionExpiryString()
         );
     }
-
 }
