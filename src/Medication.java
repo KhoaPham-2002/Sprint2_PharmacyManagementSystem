@@ -1,14 +1,19 @@
+// Name: Khoa Pham
+// Project: Sprint 1 Java
+// Group: Solo
+// Date: 03/02/2025
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Medication {
-    private int medID;
-    private String medName;
-    private String dose;
-    private int quantity;
-    private Date expiryDate;
+    private int medID; // Unique identifier for the medication
+    private String medName; // Name of the medication
+    private String dose; // Dosage information
+    private int quantity; // Quantity available
+    private Date expiryDate; // Expiry date of the medication
 
-    // Constructor
+    // Constructor to initialize a Medication object
     public Medication(int medID, String medName, String dose, int quantity, Date expiryDate) {
         this.medID = medID;
         this.medName = medName;
@@ -17,14 +22,7 @@ public class Medication {
         this.expiryDate = expiryDate;
     }
 
-    // // Generates an expiry date 2 years from today
-    // private Date generateExpiryDate() {
-    //     Calendar calendar = Calendar.getInstance();
-    //     calendar.add(Calendar.YEAR, 2);
-    //     return calendar.getTime();
-    // }
-
-    // Getters and Setters
+    // Getter and setter methods for medication attributes
     public int getMedID() {
         return medID;
     }
@@ -71,15 +69,12 @@ public class Medication {
         return dateFormat.format(expiryDate);
     }
 
-    // toString method
+    // Returns a formatted string representation of the Medication object
     @Override
     public String toString() {
-        return "Medication{" +
-                "medID=" + medID +
-                ", medName='" + medName + '\'' +
-                ", dose='" + dose + '\'' +
-                ", quantity=" + quantity +
-                ", expiryDate=" + getExpiryDateString() +
-                '}';
+        return String.format(
+            "Medication ID: %d%nMedication Name: %s%nDose: %s%nQuantity: %d%nExpiry Date: %s%n",
+            medID, medName, dose, quantity, getExpiryDateString()
+        );
     }
 }
