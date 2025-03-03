@@ -450,45 +450,30 @@ public class MedicationTrackingSystem {
     // Restock medication by asking user for quantity or random amount
     public void restockMedication(Scanner scanner) {
     Medication medication = null;
-
-    // Step 1: Keep asking for a valid medication name
     while (medication == null) {
         System.out.print("Enter Medication Name: ");
         String medicationName = scanner.nextLine().trim();
         medication = searchMedicationByName(medicationName);
-
         if (medication == null) {
             System.out.println("Error: Medication not found. Please try again.");
         }
     }
-
-    // Step 2: Ask user how they want to restock
     System.out.println("How would you like to restock?");
     System.out.println("1. Enter a specific amount");
     System.out.println("2. Add a random amount (10-50 units)");
     System.out.print("Enter your choice (1 or 2): ");
-    
     int choice = scanner.nextInt();
-    scanner.nextLine(); // Consume newline
-
+    scanner.nextLine(); 
     int restockAmount = 0;
-
-    // Step 3: Perform restocking
     if (choice == 1) {
-        // User enters a specific amount
         System.out.print("Enter the amount to add: ");
         restockAmount = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine(); 
     } else {
-        // System generates a random amount (10-50)
         restockAmount = new Random().nextInt(41) + 10;
         System.out.println("Random amount added: " + restockAmount);
     }
-
-    // Step 4: Update medication stock
     medication.setQuantity(medication.getQuantity() + restockAmount);
-
-    // Step 5: Print confirmation
     System.out.println("\nRestock successful!");
     System.out.println("Medication: " + medication.getMedName());
     System.out.println("New Quantity: " + medication.getQuantity());
