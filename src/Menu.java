@@ -352,81 +352,68 @@ public class Menu {
     }
 
     private static void processANewScript(Scanner scanner, MedicationTrackingSystem system) {
-        // Step 1: Loop to keep asking until valid doctor is found
         Doctor doctor = null;
         while (doctor == null) {
             System.out.print("Enter Doctor's Name: ");
             String doctorName = scanner.nextLine().trim();
-            doctor = system.searchDoctorByName(doctorName);  // Search for doctor by name
+            doctor = system.searchDoctorByName(doctorName);  
             if (doctor == null) {
                 System.out.println("Error: Doctor not found. Please try again.");
             }
         }
-        // Step 2: Loop to keep asking until valid patient is found
         Patient patient = null;
         while (patient == null) {
             System.out.print("Enter Patient's Name: ");
             String patientName = scanner.nextLine().trim();
-            patient = system.searchPatientByName(patientName);  // Search for patient by name
+            patient = system.searchPatientByName(patientName);  
             if (patient == null) {
                 System.out.println("Error: Patient not found. Please try again.");
             }
         }
-        // Step 3: Add Patient to Doctor's List
-        system.addPatientToDoctor(doctor.getName(), patient.getName());  // Add patient to doctor's list
-        // Step 4: Accept Prescription
+        system.addPatientToDoctor(doctor.getName(), patient.getName());  
         System.out.print("Enter Prescription ID: ");
         int prescriptionID = Integer.parseInt(scanner.nextLine().trim());
         System.out.print("Enter Medication Name: ");
         String medicationName = scanner.nextLine().trim();
-        Medication medication = system.searchMedicationByName(medicationName);  // Search for medication
+        Medication medication = system.searchMedicationByName(medicationName);  
         while (medication == null) {
             System.out.println("Error: Medication not found. Please try again.");
             System.out.print("Enter Medication Name: ");
             medicationName = scanner.nextLine().trim();
-            medication = system.searchMedicationByName(medicationName);  // Retry searching medication
+            medication = system.searchMedicationByName(medicationName); 
         }
         System.out.print("Enter Prescription Expiry Date (yyyy-MM-dd): ");
         String expiryDate = scanner.nextLine().trim();
-        // Step 5: Call the acceptPrescription function
         system.acceptPrescription(prescriptionID, doctor.getName(), patient.getName(), medicationName, expiryDate);
-        //System.out.println("Prescription successfully added!");
     }
     
     private static void printScriptsForSpecificDoctor(Scanner scanner, MedicationTrackingSystem system) {
         Doctor doctor = null;    
-        // Loop to keep asking until a valid doctor is found
         while (doctor == null) {
             System.out.print("Enter Doctor's Name: ");
             String doctorName = scanner.nextLine().trim();  
-            // Search for the doctor by name
             doctor = system.searchDoctorByName(doctorName); 
             if (doctor == null) {
                 System.out.println("Error: Doctor not found. Please try again.");
             }
         }
-        // Print the report for the doctor if found
         system.DoctorScriptReport(doctor.getName());
     }
     
-
     private static void restockPharmacyDrugs(Scanner scanner, MedicationTrackingSystem system) {
         system.restockMedication(scanner);
     }
 
     private static void printAllScriptsForPatientByName(Scanner scanner, MedicationTrackingSystem system) {
         Patient patient = null;
-        // Loop to keep asking until valid patient is found
         while (patient == null) {
             System.out.print("Enter Patient's Name: ");
             String patientName = scanner.nextLine().trim();   
-            // Search for the patient by name
             patient = system.searchPatientByName(patientName);   
             if (patient == null) {
                 System.out.println("Error: Patient not found. Please try again.");
             }
         }
-        // Print the report for the patient if found
         system.PatientScriptReport(patient.getName());
     }
     }
